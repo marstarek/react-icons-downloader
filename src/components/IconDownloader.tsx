@@ -1,0 +1,143 @@
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
+import * as ReactIcons from "react-icons";
+import ReactDOMServer from 'react-dom/server';
+
+const IconDownloader = () => {
+  const [importStatement, setImportStatement] = useState('');
+  const [iconTag, setIconTag] = useState('');
+  const [IconComponent, setIconComponent] = useState<any>(null);
+  const [error, setError] = useState('');
+  const iconImporters: Record<string, () => Promise<any>> = {
+    ai: () => import('react-icons/ai'),
+    bs: () => import('react-icons/bs'),
+    bi: () => import('react-icons/bi'),
+    ci: () => import('react-icons/ci'),
+    cg: () => import('react-icons/cg'),
+    di: () => import('react-icons/di'),
+    fi: () => import('react-icons/fi'),
+    fc: () => import('react-icons/fc'),
+    fa: () => import('react-icons/fa'),
+    gi: () => import('react-icons/gi'),
+    go: () => import('react-icons/go'),
+    gr: () => import('react-icons/gr'),
+    hi: () => import('react-icons/hi'),
+    hi2: () => import('react-icons/hi2'),
+    im: () => import('react-icons/im'),
+    // la: () => import('react-icons/la'),
+    io: () => import('react-icons/io'),
+    io5: () => import('react-icons/io5'),
+    md: () => import('react-icons/md'),
+    // ph: () => import('react-icons/ph'),
+    rx: () => import('react-icons/rx'),
+    ri: () => import('react-icons/ri'),
+    si: () => import('react-icons/si'),
+    sl: () => import('react-icons/sl'),
+    tb: () => import('react-icons/tb'),
+    tfi: () => import('react-icons/tfi'),
+    ti: () => import('react-icons/ti'),
+    vsc: () => import('react-icons/vsc'),
+    wi: () => import('react-icons/wi'),
+  };
+  const parseImport = async () => {
+    try {
+      const matches = importStatement.match(/\{ ?(\w+) ?\} from ['"]react-icons\/(\w+)['"]/);
+      if (!matches) throw new Error("Invalid import statement format.");
+  
+      const [, iconName, iconSet] = matches;
+      const importer = iconImporters[iconSet];
+  
+      if (!importer) throw new Error("Icon set not supported.");
+  
+      const module = await importer();
+      const IconComponent = module[iconName];
+  
+      if (!IconComponent) throw new Error("Icon not found in set.");
+  
+      setIconComponent(() => IconComponent);
+      toast.success("Icon loaded!");
+    } catch (err: any) {
+      setError(err.message || 'Error loading icon');
+      setIconComponent(null);
+      toast.error(err.message);
+    }
+  };
+
+  const downloadSVG = () => {
+    try {
+      if (!IconComponent) {
+        setError("No icon loaded.");
+        return;
+      }
+
+      const element = <IconComponent />;
+      const svgString = ReactDOMServer.renderToStaticMarkup(element);
+
+      const blob = new Blob([svgString], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+
+      const anchor = document.createElement("a");
+      const matches = importStatement.match(/\{ ?(\w+) ?\}/);
+      const iconName = matches?.[1] || "icon";
+
+      anchor.href = url;
+      anchor.download = `${iconName}.svg`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(url);
+
+      toast.success("SVG downloaded!");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to download SVG.");
+      toast.error("Download failed.");
+    }
+  };
+
+  return (
+    <Card className="p-4 w-[40%] h-full ">
+      <h2 className="text-2xl font-bold mb-2 text-center">React Icons Downloader</h2>
+
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Import Statement</label>
+          <Input
+            placeholder='import { AiFillAlipaySquare } from "react-icons/ai"'
+            value={importStatement}
+            onChange={(e) => setImportStatement(e.target.value)}
+            className="w-full font-mono text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">Icon Tag</label>
+          <Input
+            placeholder="<AiFillAlipaySquare />"
+            value={iconTag}
+            onChange={(e) => setIconTag(e.target.value)}
+            className="w-full font-mono text-sm"
+          />
+        </div>
+
+        <div className="flex justify-between items-center mt-2">
+          <Button onClick={parseImport}>Load Icon</Button>
+          <Button onClick={downloadSVG} disabled={!IconComponent}>Download SVG</Button>
+        </div>
+
+        {IconComponent && (
+          <div className="text-center mt-4 text-3xl text-black w-full justify-center items-center flex flex-col">
+            <IconComponent className="text-center mt-4 text-3xl w-32 h-32 " />
+          </div>
+        )}
+
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      </div>
+    </Card>
+  );
+};
+
+export default IconDownloader;
