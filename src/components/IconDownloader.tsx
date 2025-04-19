@@ -9,6 +9,8 @@ import ReactDOMServer from 'react-dom/server';
 const IconDownloader = () => {
   const [importStatement, setImportStatement] = useState('');
   const [iconTag, setIconTag] = useState('');
+  const [iconColor, setIconColor] = useState('#000000');
+
   const [IconComponent, setIconComponent] = useState<any>(null);
   const [error, setError] = useState('');
   const iconImporters: Record<string, () => Promise<any>> = {
@@ -72,9 +74,9 @@ const IconDownloader = () => {
         setError("No icon loaded.");
         return;
       }
-
-      const element = <IconComponent />;
+      const element = <IconComponent color={iconColor} />;
       const svgString = ReactDOMServer.renderToStaticMarkup(element);
+  
 
       const blob = new Blob([svgString], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(blob);
@@ -122,18 +124,30 @@ const IconDownloader = () => {
             className="w-full font-mono text-sm"
           />
         </div>
-
+        <div>
+  <label className="block text-sm font-medium mb-2">Icon Color</label>
+  <Input
+    type="color"
+    value={iconColor}
+    onChange={(e) => setIconColor(e.target.value)}
+    className="w-16 h-10 p-0 border-none"
+  />
+</div>
         <div className="flex justify-between items-center mt-2">
           <Button onClick={parseImport}>Load Icon</Button>
           <Button onClick={downloadSVG} disabled={!IconComponent}>Download SVG</Button>
         </div>
 
-        {IconComponent && (
+        {/* {IconComponent && (
           <div className="text-center mt-4 text-3xl text-black w-full justify-center items-center flex flex-col">
             <IconComponent className="text-center mt-4 text-3xl w-32 h-32 " />
           </div>
-        )}
-
+        )} */}
+{IconComponent && (
+  <div className="text-center mt-4 w-full justify-center items-center flex flex-col">
+    <IconComponent className="w-32 h-32" color={iconColor} />
+  </div>
+)}
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
     </Card>
