@@ -178,7 +178,7 @@ const IconDownloader = () => {
     className="w-16 h-10 p-0 border-none"
   />
 </div>
-        <div className="flex justify-between items-center mt-2">
+        <div className="flex justify-between items-center mt-2 w-full flex-wrap gap-2">
           <Button onClick={parseImport}>Load Icon</Button>
           <Button onClick={downloadSVG} disabled={!IconComponent}>Download SVG</Button>
           <Button onClick={downloadPNG} disabled={!IconComponent}>Download PNG</Button>

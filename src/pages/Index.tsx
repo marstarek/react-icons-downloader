@@ -7,7 +7,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-4">
       <div className=" mx-auto">
-        <h1 className="text-3xl font-bold text-center my-2 flex justify-center gap-2 items-center">React-Icons Downloader <FaReact className="text-[#e91e63]"/> </h1>
+        <h1 className="text-3xl font-bold text-center my-2 flex justify-center gap-2 items-center flex-col md:flex-row">React-Icons Downloader <FaReact className="text-[#e91e63]"/> </h1>
       
 
       
