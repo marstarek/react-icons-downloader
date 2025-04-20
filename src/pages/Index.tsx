@@ -1,29 +1,29 @@
 import IconDownloader from "@/components/IconDownloader";
 import ReactIcon from "@/components/ui/ReactIcon";
-import { IoCodeSharp } from "react-icons/io5";
-import { IoCodeSlash } from "react-icons/io5";
+import { FaReact } from "react-icons/fa";
+
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-4">
       <div className=" mx-auto">
-        <h1 className="text-3xl font-bold text-center my-2">Icon Downloader</h1>
+        <h1 className="text-3xl font-bold text-center my-2 flex justify-center gap-2 items-center">React-Icons Downloader <FaReact className="text-[#e91e63]"/> </h1>
       
 
       
 
-        <div className="mt-8 items-center justify-center gap-1 flex  h-[74vh]">
+        <div className="mt-8 items-center justify-center gap-1  flex flex-col md:flex-row  h-full w-full md:h-[80%] lg:h-[74vh]">
           <IconDownloader />
 
           <ReactIcon/>
         </div>
-        <div className="my-4 text-center flex  items-center justify-center">
-          <h2 className="text-lg font-semibold flex  items-center justify-center gap-1">Created by <IoCodeSharp className="text-red-600" />  Tarek Rashidy <IoCodeSlash className="text-red-600"/>  </h2>
+        <div className="my-4 text-center flex  items-center justify-center flex-row md:flex-col">
           <img
             src="./logo2.png" // Replace with your image URL
             alt="Tarek Rashidy"
-            className="rounded-full w-24 h-24 "
+            className="rounded-full w-14 h-14 "
           />
+          <h2 className="text-xs font-semibold flex  items-center justify-center ">Created by   Tarek Rashidy   </h2>
         </div>
       </div>
     </div>

@@ -67,7 +67,52 @@ const IconDownloader = () => {
       toast.error(err.message);
     }
   };
+  const downloadPNG = () => {
+    if (!IconComponent) {
+      setError("No icon loaded.");
+      toast.error("No icon loaded.");
+      return;
+    }
 
+    const svgElement = ReactDOMServer.renderToStaticMarkup(
+      <IconComponent color={iconColor} size={128} />
+    );
+
+    const svgBlob = new Blob([svgElement], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const size = 128; // You can customize the resolution here
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, size, size);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const pngUrl = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            const matches = importStatement.match(/\{ ?(\w+) ?\}/);
+            const iconName = matches?.[1] || "icon";
+            a.href = pngUrl;
+            a.download = `${iconName}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(pngUrl);
+            toast.success("PNG downloaded!");
+          }
+        }, "image/png");
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = () => {
+      toast.error("Failed to render icon.");
+    };
+    img.src = url;
+  };
   const downloadSVG = () => {
     try {
       if (!IconComponent) {
@@ -101,8 +146,8 @@ const IconDownloader = () => {
   };
 
   return (
-    <Card className="p-4 w-[40%] h-full ">
-      <h2 className="text-2xl font-bold mb-2 text-center">React Icons Downloader</h2>
+    <Card className="p-4 w-full  md:w-[40%] h-full ">
+      <h2 className="text-2xl font-bold mb-2 text-center"> Icons Downloader</h2>
 
       <div className="space-y-4">
         <div>
@@ -136,6 +181,8 @@ const IconDownloader = () => {
         <div className="flex justify-between items-center mt-2">
           <Button onClick={parseImport}>Load Icon</Button>
           <Button onClick={downloadSVG} disabled={!IconComponent}>Download SVG</Button>
+          <Button onClick={downloadPNG} disabled={!IconComponent}>Download PNG</Button>
+
         </div>
 
         {/* {IconComponent && (

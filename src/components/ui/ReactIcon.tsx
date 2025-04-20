@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card";
 const ReactIcon = () => {
      return (
-          <Card className="p-4  w-[60%] h-full">
-              <h2 className="text-2xl font-bold mb-2 text-center">React Icons</h2>
+          <Card className="p-4 w-full  md:w-[60%] h-full">
+              <h2 className="text-2xl font-bold mb-2 text-center">React-Icons</h2>
           <div className="flex flex-col items-center">
                <iframe
                     src="https://react-icons.github.io/react-icons/"
