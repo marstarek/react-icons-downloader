@@ -19,7 +19,7 @@ const Index = () => {
         </div>
         <div className="my-4 text-center flex  items-center justify-center flex-row md:flex-col">
   
-          <h2 className="text-xs font-semibold flex  items-center justify-center ">Created by   Tarek Rashidy   </h2>
+          <h2 className="text-xs font-semibold flex  items-center justify-center ">  </h2>
         </div>
       </div>
     </div>
