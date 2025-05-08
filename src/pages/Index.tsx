@@ -12,7 +12,7 @@ const Index = () => {
 
       
 
-        <div className="mt-8 items-center justify-center gap-1  flex flex-col md:flex-row  h-full w-full md:h-[80%] lg:h-[74vh]">
+        <div className="mt-8 items-center justify-center gap-1  flex flex-col md:flex-row  h-full w-full md:h-[80%] lg:h-[84vh]">
           <IconDownloader />
 
           <ReactIcon/>
