@@ -191,7 +191,7 @@ const IconDownloader = () => {
           </div>
         )} */}
 {IconComponent && (
-  <div className="text-center bg-black mt-4 w-full justify-center items-center flex flex-col">
+  <div className="text-center bg-gray mt-4 w-full justify-center items-center flex flex-col">
     <IconComponent className="w-32 h-32" color={iconColor} />
   </div>
 )}
