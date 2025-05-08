@@ -149,7 +149,7 @@ const IconDownloader = () => {
     <Card className="p-4 w-full  md:w-[40%] h-full ">
       <h2 className="text-2xl font-bold mb-2 text-center"> Icons Downloader</h2>
 
-      <div className="space-y-4">
+      <div className="space-y-4 flex flex-col h-full">
         <div>
           <label className="block text-sm font-medium mb-2">Import Statement</label>
           <Input
@@ -191,7 +191,7 @@ const IconDownloader = () => {
           </div>
         )} */}
 {IconComponent && (
-  <div className="text-center bg-gray mt-4 w-full justify-center items-center flex flex-col">
+  <div className="text-center bg-gray h-1/2 mt-4 w-full justify-center items-center flex flex-col">
     <IconComponent className="w-32 h-32" color={iconColor} />
   </div>
 )}
