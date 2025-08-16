@@ -125,9 +125,10 @@ const IconDownloader = () => {
   };
 
   return (
-    <Card className="p-4 w-full md:w-[40%]">
-      <h2 className="text-2xl font-bold mb-4 text-center">Icons Downloader</h2>
-      <div className="space-y-4">
+    <Card className="p-4 w-full  md:w-[40%] h-full ">
+      <h2 className="text-2xl font-bold mb-2 text-center"> Icons Downloader</h2>
+
+      <div className="space-y-4 flex flex-col h-full">
         <div>
           <label className="block text-sm font-medium mb-2">Icon Name</label>
           <Input

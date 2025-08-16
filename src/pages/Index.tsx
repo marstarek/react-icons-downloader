@@ -12,18 +12,14 @@ const Index = () => {
 
       
 
-        <div className="mt-8 items-center justify-center gap-1  flex flex-col md:flex-row  h-full w-full md:h-[80%] lg:h-[74vh]">
+        <div className="mt-8 items-center justify-center gap-1  flex flex-col md:flex-row  h-full w-full md:h-[80%] lg:h-[84vh]">
           <IconDownloader />
 
           <ReactIcon/>
         </div>
         <div className="my-4 text-center flex  items-center justify-center flex-row md:flex-col">
-          <img
-            src="./logo2.png" // Replace with your image URL
-            alt="Tarek Rashidy"
-            className="rounded-full w-14 h-14 "
-          />
-          <h2 className="text-xs font-semibold flex  items-center justify-center ">Created by   Tarek Rashidy   </h2>
+  
+          <h2 className="text-xs font-semibold flex  items-center justify-center ">  </h2>
         </div>
       </div>
     </div>
