@@ -27,10 +27,3 @@ Built with **React + Vite**, deployed on **Vercel**.
 
 ---
 
-## 📦 Installation (Local Development)
-
-1. Clone the repo:
-
-   ```bash
-   git clone https://github.com/your-username/react-icons-downloader.git
-   cd react-icons-downloader
